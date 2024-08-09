@@ -1,6 +1,7 @@
 'use client';
+
 import { useEffect, useState } from 'react';
-import { fetchUserData } from '@/lib/shared-camera-apis';
+import { fetchUserData } from '@/lib/apis/shared-camera-apis';
 import { User } from '@/types';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -18,7 +19,7 @@ export default function Login() {
       setLoading(true);
       const userDataResponse = await fetchUserData(accessToken);
       setUserData(userDataResponse);
-      localStorage.setItem(`${userDataResponse?.id}`, accessToken);
+      localStorage.setItem('accessToken', accessToken);
       setLoading(false);
     } catch (error: any) {
       console.error('Error fetching user data:', error);

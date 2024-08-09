@@ -1,12 +1,20 @@
+import { baseUrl } from '@/lib/envs';
 import { CameraResponse, User } from '@/types';
  
-export const getListOfSharedCameras = async () => {
+/**
+ * get list of shared list camera
+ *
+ * @async
+ * @param {string} accessToken
+ * @returns {unknown}
+ */
+export const getListOfSharedCameras = async (accessToken: string) => {
     const response = await fetch(
-        'https://api.angelcam.com/v1/shared-cameras/',
+        `${baseUrl}/shared-cameras/`,
             {
                 headers: {
                   Authorization:
-                    'PersonalAccessToken 584f9f7330573c4a3717ea7aa1f97d884d39ac8d',
+                    `PersonalAccessToken ${accessToken}`,
                 },
             }
             );
@@ -14,9 +22,16 @@ export const getListOfSharedCameras = async () => {
     return cameraList
 } 
 
+/**
+ * Get user data
+ *
+ * @async
+ * @param {string} accessToken
+ * @returns {Promise<User | null>}
+ */
 export const fetchUserData = async (accessToken: string): Promise<User | null> => {
     try {
-      const response = await fetch('https://api.angelcam.com/v1/me/', {
+      const response = await fetch(`${baseUrl}/me/`, {
         headers: {
           'Authorization': `PersonalAccessToken ${accessToken}`,
           'Accept': 'application/json',

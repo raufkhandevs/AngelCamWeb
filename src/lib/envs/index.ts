@@ -1,0 +1,1 @@
+export const baseUrl = process.env.BASE_URL || 'https://api.angelcam.com/v1';

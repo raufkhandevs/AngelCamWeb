@@ -1,8 +1,24 @@
+'use client';
+
 import CameraGrid from '@/components/camera-list';
-import Header from '@/components/navbar';
+import Header from '@/components/layouts/navbar';
+import { useCamera } from '@/hooks/use-camera';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
+  const { getListOfSharedCameraList, isLoadingToken, accessToken } =
+    useCamera();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!accessToken && !isLoadingToken) {
+      router.push('/login');
+    }
+  }, [accessToken, router]);
+
   return (
     <>
       <Head>
@@ -14,7 +30,10 @@ const Dashboard = () => {
       <main className='min-h-screen bg-gray-100'>
         <Header />
         <div className='p-8'>
-          <CameraGrid />
+          <CameraGrid
+            cameraList={getListOfSharedCameraList}
+            isLoading={isLoadingToken}
+          />
         </div>
       </main>
     </>

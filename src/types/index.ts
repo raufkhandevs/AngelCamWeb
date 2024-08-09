@@ -54,4 +54,22 @@ export interface User {
   };
 }
 
+export interface Stream {
+  url: string;
+  format: string;
+}
+
+export interface Camera {
+  name: string;
+  streams: Stream[];
+}
+
+export interface CameraModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  selectedCamera: Camera | null;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+}
+
   
